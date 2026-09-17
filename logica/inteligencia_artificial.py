@@ -85,10 +85,16 @@ class AlgoritmoMinimax:
         Returns:
             Tupla (fila, columna) del mejor movimiento
         """
+        # Si el juego ya terminó (alguien ganó o el tablero está lleno),
+        # no hay ningún movimiento válido que calcular: se corta antes de
+        # invocar minimax sobre un estado terminal.
+        if self.tablero.verificar_ganador() is not None or self.tablero.es_tablero_lleno():
+            return None
+
         mejor_puntuacion = -math.inf
         mejor_movimiento = None
         movimientos_disponibles = self.tablero.obtener_movimientos_disponibles()
-        
+
         # Si no hay movimientos disponibles
         if not movimientos_disponibles:
             return None
