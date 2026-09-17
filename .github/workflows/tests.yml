@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          # pygame requiere SDL; en el runner headless de GitHub Actions
+          # basta con instalar la dependencia, no se abre ninguna ventana
+          # porque los tests solo ejercitan la capa de lógica (logica/).
+          pip install -r requirements.txt
+          pip install pytest
+
+      - name: Ejecutar la suite de tests
+        run: pytest -v
