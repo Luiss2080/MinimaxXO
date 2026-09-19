@@ -78,8 +78,8 @@ python main.py
 Elige **JUGAR**, haz clic en una casilla vacía y la IA responde sola. Contra un Minimax perfecto,
 lo máximo que puedes lograr es empatar.
 
-> Nota: `requirements.txt` fija `numpy==1.24.3`, pero el código no importa NumPy en ningún
-> archivo. Con Python 3.14 la verificación se hizo con `pygame-ce` 2.5.7, no con `pygame==2.5.2`.
+> Nota: `requirements.txt` ya no declara `numpy` (no se importaba en ningún archivo y `1.24.3`
+> no tiene wheel para Python 3.12, lo que rompía el CI). Con Python 3.14 la verificación se hizo con `pygame-ce` 2.5.7, no con `pygame==2.5.2`.
 
 <details>
 <summary>Estructura de carpetas</summary>
@@ -119,7 +119,6 @@ Se ejecuta en GitHub Actions (`.github/workflows/tests.yml`) en cada push/PR a `
 - Sin niveles de dificultad, sin elegir símbolo ni quién mueve primero.
 - `efectos_multimedia.py` es mínimo: solo la animación de aparición de símbolos; no hay archivos de sonido (el mezclador de audio se inicializa, pero no se reproduce nada).
 - La interfaz gráfica no tiene tests automáticos (solo `logica/`).
-- Dependencia `numpy` declarada pero sin uso.
 
 ## 📄 Licencia
 
